@@ -2,48 +2,51 @@
 
 import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
+import Image from 'next/image';
 
 export default function Home() {
   const clientWork = [
     {
-      title: "Healthcare Analytics Platform",
-      context: "For a leading healthcare provider",
-      impact: "65% faster patient data retrieval",
-      description: "Engineered a real-time analytics dashboard that transformed how physicians access and interpret patient data during consultations.",
-      tech: ["React", "TypeScript", "D3.js"],
-      metrics: [
-        { label: "Data retrieval speed", value: "65%", suffix: "faster" },
-        { label: "Daily active users", value: "200+", suffix: "physicians" },
-        { label: "Patient records", value: "1M+", suffix: "processed" }
+      "title": "TradeZeit",
+      "context": "Empowering Indian Stock Traders & Investors",
+      "impact": "Revolutionizing Trading with AI-Driven Insights",
+      "description": "India’s first-of-its-kind mobile app for traders, offering AI-powered strategy building, real-time analytics, and smart trade journaling.",
+      "image": "/tradezeit.png",
+      "url": "https://tradezeit.in",
+      "metrics": [
+        { "label": "Trade Analysis Speed", "value": "70%", "suffix": "faster" },
+        { "label": "Daily Active Users", "value": "500+", "suffix": "traders" },
+        { "label": "Trades Processed", "value": "2M+", "suffix": "executed" }
       ],
-      color: "from-cyan-500/20 to-blue-500/20"
-    },
-    {
-      title: "E-commerce Optimization",
-      context: "For a direct-to-consumer brand",
-      impact: "28% increase in conversion rate",
-      description: "Redesigned the checkout experience with real-time validation and progress indication, significantly reducing cart abandonment.",
-      tech: ["Next.js", "Stripe", "TailwindCSS"],
-      metrics: [
-        { label: "Conversion rate", value: "28%", suffix: "increase" },
-        { label: "Cart abandonment", value: "45%", suffix: "reduction" },
-        { label: "Page load time", value: "65%", suffix: "faster" }
-      ],
-      color: "from-purple-500/20 to-pink-500/20"
-    },
-    {
-      title: "IoT Monitoring System",
-      context: "For an industrial manufacturer",
-      impact: "40% reduction in downtime",
-      description: "Developed an intelligent monitoring system with predictive maintenance alerts, optimizing equipment performance across multiple facilities.",
-      tech: ["Node.js", "AWS IoT", "TimescaleDB"],
-      metrics: [
-        { label: "Downtime reduction", value: "40%", suffix: "improvement" },
-        { label: "Facilities covered", value: "12", suffix: "locations" },
-        { label: "Sensors monitored", value: "500+", suffix: "real-time" }
-      ],
-      color: "from-emerald-500/20 to-teal-500/20"
+      "color": "from-indigo-500/20 to-purple-500/20"
     }
+    
+    // {
+    //   title: "E-commerce Optimization",
+    //   context: "For a direct-to-consumer brand",
+    //   impact: "28% increase in conversion rate",
+    //   description: "Redesigned the checkout experience with real-time validation and progress indication, significantly reducing cart abandonment.",
+    //   tech: ["Next.js", "Stripe", "TailwindCSS"],
+    //   metrics: [
+    //     { label: "Conversion rate", value: "28%", suffix: "increase" },
+    //     { label: "Cart abandonment", value: "45%", suffix: "reduction" },
+    //     { label: "Page load time", value: "65%", suffix: "faster" }
+    //   ],
+    //   color: "from-purple-500/20 to-pink-500/20"
+    // },
+    // {
+    //   title: "IoT Monitoring System",
+    //   context: "For an industrial manufacturer",
+    //   impact: "40% reduction in downtime",
+    //   description: "Developed an intelligent monitoring system with predictive maintenance alerts, optimizing equipment performance across multiple facilities.",
+    //   tech: ["Node.js", "AWS IoT", "TimescaleDB"],
+    //   metrics: [
+    //     { label: "Downtime reduction", value: "40%", suffix: "improvement" },
+    //     { label: "Facilities covered", value: "12", suffix: "locations" },
+    //     { label: "Sensors monitored", value: "500+", suffix: "real-time" }
+    //   ],
+    //   color: "from-emerald-500/20 to-teal-500/20"
+    // }
   ];
 
   const process = [
@@ -204,55 +207,72 @@ export default function Home() {
                   backdrop-blur-sm border border-foreground/5 hover:border-primary/20 
                   transition-all duration-300`}
                 >
-                  <div className="flex flex-col gap-6">
-                    {/* Header */}
-                    <div>
-                      <div className="text-xs text-foreground/50 tracking-wider mb-2">{project.context}</div>
-                      <h3 className="text-2xl font-medium group-hover:text-primary transition-colors">
-                        {project.title}
-                      </h3>
+                  <div className="grid md:grid-cols-[65%_35%] gap-6">
+                    {/* Left Column: Description and Metrics */}
+                    <div className="space-y-4">
+                      {/* Header */}
+                      <div>
+                        <div className="text-xs text-foreground/50 tracking-wider mb-1">{project.context}</div>
+                        <h3 className="text-xl font-medium group-hover:text-primary transition-colors mb-2">
+                          {project.title}
+                        </h3>
+                        <p className="text-sm text-foreground/70">
+                          {project.description}
+                        </p>
+                      </div>
+
+                      {/* Metrics */}
+                      <div className="grid grid-cols-3 gap-3">
+                        {project.metrics.map((metric) => (
+                          <motion.div
+                            key={metric.label}
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.3 }}
+                            className="flex flex-col p-2 rounded-lg bg-background/30"
+                          >
+                            <div className="text-lg font-medium text-primary">
+                              {metric.value}
+                            </div>
+                            <div className="text-[10px] text-foreground/50">
+                              {metric.label}
+                            </div>
+                            <div className="text-xs text-primary/70">
+                              {metric.suffix}
+                            </div>
+                          </motion.div>
+                        ))}
+                      </div>
                     </div>
 
-                    {/* Description */}
-                    <p className="text-sm text-foreground/70 leading-relaxed">
-                      {project.description}
-                    </p>
-
-                    {/* Metrics */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      {project.metrics.map((metric) => (
-                        <motion.div
-                          key={metric.label}
-                          initial={{ opacity: 0, y: 10 }}
-                          whileInView={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.3 }}
-                          className="flex flex-col items-center p-3 rounded-xl bg-background/30"
+                    {/* Right Column: Image Embedding */}
+                    <div className="h-full flex flex-col justify-center pr-4">
+                      <div className="relative w-full overflow-hidden border border-white/10 rounded-lg bg-black/20 backdrop-blur-sm shadow-lg hover:border-primary/20 transition-all duration-300" style={{ aspectRatio: '4/3' }}>
+                        <Image 
+                          src={project.image} 
+                          alt={`${project.title} Preview`}
+                          fill
+                          className="object-cover rounded-lg"
+                          priority
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+                        <a 
+                          href={project.url} 
+                          target="_blank" 
+                          rel="noopener noreferrer" 
+                          className="absolute bottom-4 right-4 flex items-center gap-2 text-sm text-white/90 bg-black/50 px-3 py-1.5 rounded-full backdrop-blur-sm group cursor-pointer hover:bg-black/70 transition-colors"
                         >
-                          <div className="text-2xl font-medium text-primary mb-1">
-                            {metric.value}
-                          </div>
-                          <div className="text-xs text-foreground/50 text-center">
-                            {metric.label}
-                          </div>
-                          <div className="text-sm text-primary/70">
-                            {metric.suffix}
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-
-                    {/* Technologies */}
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map(tech => (
-                        <motion.span
-                          key={tech}
-                          whileHover={{ scale: 1.05 }}
-                          className="text-xs px-3 py-1.5 rounded-full bg-primary/10 
-                            text-primary/80 hover:bg-primary/20 transition-colors"
-                        >
-                          {tech}
-                        </motion.span>
-                      ))}
+                          <span>Preview</span>
+                          <svg 
+                            className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" 
+                            fill="none" 
+                            stroke="currentColor" 
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                          </svg>
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -366,11 +386,11 @@ export default function Home() {
                 </p>
                 
                 <a 
-                  href="mailto:hello@example.com"
+                  href="mailto:salunke.apurv7@gmail.com"
                   className="inline-flex items-center text-lg group"
                 >
                   <span className="text-primary mr-2">✉</span>
-                  <span className="group-hover:text-primary transition-colors">hello@example.com</span>
+                  <span className="group-hover:text-primary transition-colors">salunke.apurv7@gmail.com</span>
                   <motion.span 
                     className="inline-block ml-1 opacity-0 group-hover:opacity-100"
                     initial={{ width: 0 }}
