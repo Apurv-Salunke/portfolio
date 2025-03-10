@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Image from 'next/image';
-import { SITE_CONFIG, CLIENT_WORK, WORK_PROCESS, SOCIAL_LINKS } from '@/constants';
+import { SITE_CONFIG, CLIENT_WORK, WORK_PROCESS } from '@/constants';
 
 export default function Home() {
   const clientWork = CLIENT_WORK;
