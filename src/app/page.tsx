@@ -139,6 +139,24 @@ export default function Home() {
             <p className="text-xl text-foreground/80">
               Building thoughtful digital solutions for businesses and individuals
             </p>
+            <motion.span 
+              className="inline-block bg-primary/10 text-primary font-semibold px-3 py-1 rounded-full shadow-md mt-4 flex items-center justify-center cursor-pointer"
+              animate={{ y: [0, -5, 0] }}
+              transition={{ duration: 2, repeat: Infinity, repeatType: 'reverse' }}
+              onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
+            >
+              Currently available for select projects
+              <svg 
+                className="ml-2 w-4 h-4 text-primary"
+                fill="none" 
+                stroke="currentColor" 
+                strokeWidth="2" 
+                viewBox="0 0 24 24" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7"></path>
+              </svg>
+            </motion.span>
             <div className="flex gap-4 justify-center mt-8">
               <motion.button 
                 whileHover={{ scale: 1.05 }}
@@ -311,26 +329,87 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 border-t border-foreground/10">
-        <div className="max-w-xl mx-auto px-4 text-center">
-          <p className="text-foreground/60 mb-8">
-            Currently available for select projects
-          </p>
-          <a 
-            href="mailto:hello@example.com"
-            className="text-lg hover:text-primary transition-colors"
-          >
-            hello@example.com
-          </a>
-          
-          <div className="mt-8 pt-8 border-t border-foreground/10">
-            <div className="flex justify-center gap-8 text-sm text-foreground/60">
-              <a href="#" className="hover:text-primary transition-colors">Twitter</a>
-              <a href="#" className="hover:text-primary transition-colors">GitHub</a>
-              <a href="#" className="hover:text-primary transition-colors">LinkedIn</a>
-            </div>
+      <section id="contact" className="py-24 border-t border-foreground/10 relative overflow-hidden">
+        {/* Background effect */}
+        <div className="absolute inset-0 -z-10 bg-gradient-to-b from-background to-background-alt opacity-70" />
+        <div className="absolute inset-0 -z-10 opacity-10" style={{ backgroundImage: 'var(--noise)' }} />
+        
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+          className="max-w-4xl mx-auto px-4"
+        >
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl font-medium mb-4">Let&apos;s Connect</h2>
+            <p className="text-foreground/60 max-w-2xl mx-auto">
+              <span className="inline-block bg-primary/10 text-primary font-semibold px-3 py-1 rounded-full shadow-md">
+                Currently available for select projects
+              </span>
+            </p>
           </div>
-        </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            {/* Contact Info */}
+            <motion.div 
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="flex flex-col items-center md:items-start space-y-8"
+            >
+              <div className="text-center md:text-left">
+                <h3 className="text-xl font-medium mb-2">Get in Touch</h3>
+                <p className="text-foreground/60 mb-4">
+                  I&apos;m always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+                </p>
+                
+                <a 
+                  href="mailto:hello@example.com"
+                  className="inline-flex items-center text-lg group"
+                >
+                  <span className="text-primary mr-2">✉</span>
+                  <span className="group-hover:text-primary transition-colors">hello@example.com</span>
+                  <motion.span 
+                    className="inline-block ml-1 opacity-0 group-hover:opacity-100"
+                    initial={{ width: 0 }}
+                    whileHover={{ width: 'auto' }}
+                  >
+                    →
+                  </motion.span>
+                </a>
+              </div>
+              
+              <div className="w-full">
+                <h3 className="text-xl font-medium mb-4 text-center md:text-left">Connect</h3>
+                <div className="flex justify-center md:justify-start gap-6">
+                  <motion.a 
+                    href="#" 
+                    whileHover={{ y: -3, scale: 1.1 }}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-card border border-border hover:border-primary/50 hover:shadow-[0_0_10px_rgba(0,255,171,0.3)] transition-all"
+                  >
+                    <span className="text-xl">𝕏</span>
+                  </motion.a>
+                  <motion.a 
+                    href="#" 
+                    whileHover={{ y: -3, scale: 1.1 }}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-card border border-border hover:border-primary/50 hover:shadow-[0_0_10px_rgba(0,255,171,0.3)] transition-all"
+                  >
+                    <span className="text-xl">𝔾</span>
+                  </motion.a>
+                  <motion.a 
+                    href="#" 
+                    whileHover={{ y: -3, scale: 1.1 }}
+                    className="flex items-center justify-center w-12 h-12 rounded-full bg-card border border-border hover:border-primary/50 hover:shadow-[0_0_10px_rgba(0,255,171,0.3)] transition-all"
+                  >
+                    <span className="text-xl">𝕃</span>
+                  </motion.a>
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </motion.div>
       </section>
 
       <footer className="py-8 text-center text-foreground/40 text-sm border-t border-foreground/10">
