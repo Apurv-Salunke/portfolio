@@ -7,14 +7,15 @@ export default function Navigation() {
   
   const navItems = [
     { name: 'Home', id: 'home', icon: '⌂' },
-    { name: 'Projects', id: 'projects', icon: '⚡' },
-    { name: 'Experience', id: 'experience', icon: '✧' },
-    { name: 'Skills', id: 'skills', icon: '⚔' },
+    { name: 'Work', id: 'work', icon: '⚡' },
+    { name: 'Process', id: 'process', icon: '✧' },
     { name: 'Contact', id: 'contact', icon: '⊡' },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
+      setIsScrolled(window.scrollY > 20);
+
       const sections = navItems.map(item => document.getElementById(item.id));
       const scrollPosition = window.scrollY + window.innerHeight / 3;
 
@@ -28,13 +29,11 @@ export default function Navigation() {
           }
         }
       });
-
-      setIsScrolled(window.scrollY > 20);
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [navItems]);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -47,35 +46,30 @@ export default function Navigation() {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.5 }}
-      className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 ${
-        isScrolled ? 'w-[90%] sm:w-[400px]' : 'w-[95%] sm:w-[500px]'
+      transition={{ duration: 0.6 }}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? 'bg-background/95 backdrop-blur-sm shadow-sm' : 'bg-transparent'
       }`}
     >
-      <nav className={`cyber-card rounded-2xl px-2 py-2 transition-all duration-300 ${
-        isScrolled ? 'bg-opacity-95' : 'bg-opacity-70'
-      }`}>
-        <ul className="flex items-center justify-around">
+      <nav className="max-w-screen-xl mx-auto px-4">
+        <ul className="flex items-center justify-center gap-8 h-16">
           {navItems.map((item) => (
             <li key={item.id}>
               <button
                 onClick={() => scrollToSection(item.id)}
-                className={`relative group px-3 py-2 rounded-xl transition-all duration-300
+                className={`relative px-3 py-2 transition-colors duration-300
                   ${activeSection === item.id ? 'text-primary' : 'text-foreground/70 hover:text-foreground'}
                 `}
               >
-                <span className="block text-center text-lg mb-1">{item.icon}</span>
-                <span className="block text-xs font-medium tracking-wider">{item.name}</span>
+                <span className="text-lg">{item.icon}</span>
                 
                 {activeSection === item.id && (
                   <motion.div
                     layoutId="nav-indicator"
-                    className="absolute inset-0 rounded-xl bg-primary/10 -z-10"
+                    className="absolute -bottom-1 left-0 right-0 h-px bg-primary"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}
-
-                <div className="absolute inset-0 rounded-xl bg-primary/0 group-hover:bg-primary/5 transition-all duration-300 -z-10" />
               </button>
             </li>
           ))}
