@@ -1,80 +1,78 @@
 import { motion } from 'framer-motion';
-import { useState, useEffect } from 'react';
+import { SOCIAL_LINKS } from '@/constants';
 
 export default function Navigation() {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
-  
-  const navItems = [
-    { name: 'Home', id: 'home', icon: '⌂' },
-    { name: 'Work', id: 'work', icon: '⚡' },
-    { name: 'Process', id: 'process', icon: '✧' },
-    { name: 'Contact', id: 'contact', icon: '⊡' },
+  const menuItems = [
+    { label: 'Home', href: '#home' },
+    { label: 'Work', href: '#work' },
+    { label: 'Process', href: '#process' },
+    { label: 'Contact', href: '#contact' }
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-
-      const sections = navItems.map(item => document.getElementById(item.id));
-      const scrollPosition = window.scrollY + window.innerHeight / 3;
-
-      sections.forEach(section => {
-        if (section) {
-          const sectionTop = section.offsetTop;
-          const sectionHeight = section.offsetHeight;
-
-          if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-            setActiveSection(section.id);
-          }
-        }
-      });
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [navItems]);
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   return (
-    <motion.header
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6 }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? 'bg-background/95 backdrop-blur-sm shadow-sm' : 'bg-transparent'
-      }`}
-    >
-      <nav className="max-w-screen-xl mx-auto px-4">
-        <ul className="flex items-center justify-center gap-8 h-16">
-          {navItems.map((item) => (
-            <li key={item.id}>
-              <button
-                onClick={() => scrollToSection(item.id)}
-                className={`relative px-3 py-2 transition-colors duration-300
-                  ${activeSection === item.id ? 'text-primary' : 'text-foreground/70 hover:text-foreground'}
-                `}
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/10">
+      <div className="max-w-5xl mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          {/* Logo */}
+          <motion.a
+            href="#home"
+            className="text-xl font-bold tracking-tight"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            AS
+          </motion.a>
+
+          {/* Navigation Links */}
+          <div className="hidden md:flex items-center space-x-8">
+            {menuItems.map((item) => (
+              <motion.a
+                key={item.label}
+                href={item.href}
+                className="text-sm text-foreground/70 hover:text-primary transition-colors"
+                whileHover={{ y: -2 }}
+                whileTap={{ y: 0 }}
               >
-                <span className="text-lg">{item.icon}</span>
-                
-                {activeSection === item.id && (
-                  <motion.div
-                    layoutId="nav-indicator"
-                    className="absolute -bottom-1 left-0 right-0 h-px bg-primary"
-                    transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                  />
-                )}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </nav>
-    </motion.header>
+                {item.label}
+              </motion.a>
+            ))}
+          </div>
+
+          {/* Social Links */}
+          <div className="flex items-center space-x-4">
+            <motion.a
+              href={SOCIAL_LINKS.twitter}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/50 hover:text-primary transition-colors"
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0 }}
+            >
+              𝕏
+            </motion.a>
+            <motion.a
+              href={SOCIAL_LINKS.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/50 hover:text-primary transition-colors"
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0 }}
+            >
+              𝔾
+            </motion.a>
+            <motion.a
+              href={SOCIAL_LINKS.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-foreground/50 hover:text-primary transition-colors"
+              whileHover={{ y: -2 }}
+              whileTap={{ y: 0 }}
+            >
+              𝕃
+            </motion.a>
+          </div>
+        </div>
+      </div>
+    </nav>
   );
 } 

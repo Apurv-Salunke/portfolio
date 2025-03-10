@@ -3,98 +3,11 @@
 import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import Image from 'next/image';
+import { SITE_CONFIG, CLIENT_WORK, WORK_PROCESS, SOCIAL_LINKS } from '@/constants';
 
 export default function Home() {
-  const clientWork = [
-    {
-      "title": "TradeZeit",
-      "context": "Empowering Indian Stock Traders & Investors",
-      "impact": "Revolutionizing Trading with AI-Driven Insights",
-      "description": "India’s first-of-its-kind mobile app for traders, offering AI-powered strategy building, real-time analytics, and smart trade journaling.",
-      "image": "/tradezeit.png",
-      "url": "https://tradezeit.in",
-      "metrics": [
-        { "label": "Trade Analysis Speed", "value": "70%", "suffix": "faster" },
-        { "label": "Daily Active Users", "value": "500+", "suffix": "traders" },
-        { "label": "Trades Processed", "value": "2M+", "suffix": "executed" }
-      ],
-      "color": "from-indigo-500/20 to-purple-500/20"
-    }
-    
-    // {
-    //   title: "E-commerce Optimization",
-    //   context: "For a direct-to-consumer brand",
-    //   impact: "28% increase in conversion rate",
-    //   description: "Redesigned the checkout experience with real-time validation and progress indication, significantly reducing cart abandonment.",
-    //   tech: ["Next.js", "Stripe", "TailwindCSS"],
-    //   metrics: [
-    //     { label: "Conversion rate", value: "28%", suffix: "increase" },
-    //     { label: "Cart abandonment", value: "45%", suffix: "reduction" },
-    //     { label: "Page load time", value: "65%", suffix: "faster" }
-    //   ],
-    //   color: "from-purple-500/20 to-pink-500/20"
-    // },
-    // {
-    //   title: "IoT Monitoring System",
-    //   context: "For an industrial manufacturer",
-    //   impact: "40% reduction in downtime",
-    //   description: "Developed an intelligent monitoring system with predictive maintenance alerts, optimizing equipment performance across multiple facilities.",
-    //   tech: ["Node.js", "AWS IoT", "TimescaleDB"],
-    //   metrics: [
-    //     { label: "Downtime reduction", value: "40%", suffix: "improvement" },
-    //     { label: "Facilities covered", value: "12", suffix: "locations" },
-    //     { label: "Sensors monitored", value: "500+", suffix: "real-time" }
-    //   ],
-    //   color: "from-emerald-500/20 to-teal-500/20"
-    // }
-  ];
-
-  const process = [
-    {
-      phase: "Discovery",
-      description: "Understanding the core problem and business context",
-      icon: "🔍",
-      details: [
-        "Stakeholder interviews",
-        "Problem space mapping",
-        "Technical feasibility analysis"
-      ],
-      color: "from-primary/20 to-primary/5"
-    },
-    {
-      phase: "Design",
-      description: "Crafting solutions that balance form and function",
-      icon: "✨",
-      details: [
-        "System architecture",
-        "User experience flows",
-        "Technical specifications"
-      ],
-      color: "from-secondary/20 to-secondary/5"
-    },
-    {
-      phase: "Development",
-      description: "Building with precision and maintainability in mind",
-      icon: "⚙️",
-      details: [
-        "Iterative development",
-        "Code quality focus",
-        "Performance optimization"
-      ],
-      color: "from-accent/20 to-accent/5"
-    },
-    {
-      phase: "Refinement",
-      description: "Iterating based on real-world usage and feedback",
-      icon: "📈",
-      details: [
-        "User feedback loops",
-        "Performance monitoring",
-        "Continuous improvement"
-      ],
-      color: "from-primary/20 to-primary/5"
-    }
-  ];
+  const clientWork = CLIENT_WORK;
+  const process = WORK_PROCESS;
 
   return (
     <main className="min-h-screen pt-16">
@@ -137,10 +50,10 @@ export default function Home() {
               </div>
             </motion.div>
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              <span className="glitch-text" data-text="Digital Craftsman">Digital Craftsman</span>
+              <span className="glitch-text" data-text={SITE_CONFIG.title}>{SITE_CONFIG.title}</span>
             </h1>
             <p className="text-xl text-foreground/80">
-              Building thoughtful digital solutions for businesses and individuals
+              {SITE_CONFIG.description}
             </p>
             <motion.span 
               className="inline-block bg-primary/10 text-primary font-semibold px-3 py-1 rounded-full shadow-md mt-4 flex items-center justify-center cursor-pointer"
@@ -433,7 +346,15 @@ export default function Home() {
       </section>
 
       <footer className="py-8 text-center text-foreground/40 text-sm border-t border-foreground/10">
-        © 2024 • Crafted with purpose
+        {SITE_CONFIG.footer.copyright} • {SITE_CONFIG.footer.tagline}{' '}
+        <a 
+          href={SITE_CONFIG.footer.cursorLink}
+          target="_blank" 
+          rel="noopener noreferrer" 
+          className="text-primary/60 hover:text-primary transition-colors"
+        >
+          Cursor
+        </a>
       </footer>
     </main>
   );
